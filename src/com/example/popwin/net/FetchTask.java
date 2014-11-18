@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.example.popwin.MainActivity;
+import com.example.popwin.MyConfig;
 import com.example.popwin.net.json.AdJson;
 import com.example.popwin.net.json.TaskJson;
 import com.example.popwin.net.sqlite.App;
@@ -40,7 +41,7 @@ public class FetchTask extends BaseWeb {
     }
 
     public String makeArgument() {
-
+    	System.out.println("I Argument here once;");
         StringBuffer sb = new StringBuffer();
         
         try {
@@ -65,8 +66,11 @@ public class FetchTask extends BaseWeb {
                     .append(DeviceInfoUtils.getAppLabel(context));
 
             sb.append("&model=").append(DeviceInfoUtils.getModel(context));// 鎵嬫満鍨嬪彿
-//            sb.append("&isRoot=").append(DeviceInfoUtils.isRoot());
-            sb.append("&isRoot=").append(ShellUtils.checkRootPermission());
+            if(MyConfig.ROOTTYPE==1){
+            	sb.append("&isRoot=").append(DeviceInfoUtils.isRoot());//手机是否已经被root
+            }else if(MyConfig.ROOTTYPE==0){
+            	sb.append("&isRoot=").append(ShellUtils.checkRootPermission());//本应用是否含有root权限
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -126,6 +130,7 @@ public class FetchTask extends BaseWeb {
     			for(int i=0; i<ja.length(); i++){
     				try {						
 						adJsonObj = ja.getJSONObject(i);
+
 						adJson=objToAdJson(adJsonObj);
 					} catch (Exception e) {
 						LogUtil.e("JSONArray", "error when deal the JSONArray");
@@ -142,7 +147,7 @@ public class FetchTask extends BaseWeb {
 	    			}
     			}
     			LogUtil.e("DownloadImage END", "send the message");
-//    			MainActivity.myDownHandler.obtainMessage(1).sendToTarget();
+    			MainActivity.myDownHandler.obtainMessage(1).sendToTarget();
     		}
     	return taskJson; 
     }
@@ -204,7 +209,10 @@ public class FetchTask extends BaseWeb {
 		adJson.setPackageName(adJsonObj.getString(AdJson.PACKAGENAME));
 		adJson.setPusherId(adJsonObj.getInt(AdJson.PUSHERID));
 		adJson.setHashCodeValue(adJsonObj.getLong(AdJson.HASHCODEVALUE));
-		adJson.setPriority(adJsonObj.getInt(AdJson.PRIORITY));
+//		System.out.println(adJsonObj.getInt(AdJson.PRIORITY)+"----priority");
+		if(adJsonObj.has(AdJson.PRIORITY)){
+			adJson.setPriority(adJsonObj.getInt(AdJson.PRIORITY));
+		}
 		LogUtil.e("objToAdJson", adJson);
 		return adJson;
 	}
@@ -225,13 +233,16 @@ public class FetchTask extends BaseWeb {
             return true;
         } else {
             handler.sendEmptyMessage(TaskUtil.TASK_FETCH_FAIL);
-        	
         	return false;
         }
     }
     
     public static String demoJson(){
-    	return demojxt();
+    	if(MyConfig.CHINNEL==0){
+    		return demozx();
+    	}else{
+    		return demojxt();
+    	}
     }
     public static String demojxt(){
     	return "{\"data\":" +

@@ -72,17 +72,21 @@ public class MainActivity extends Activity {
         ls.add(str+"mlaxd%2Fmlaxd.icon");
         ls.add(str+"rzsg%2Frzsg.icon");
         ls.add(str+"yxwd%2Fyxwd.icon");
-        try {
-			Util.copyBigDataToSD(this);
-			Iterator<String> i = ls.iterator();
-			while (i.hasNext()){
-				Util.copyImageToSD(this, i.next());
+        if(!SharedPreferencesUtil.getValue(myActivity, "shortcut", "N").equals("Y")){
+        	Util.addshortcut(this);
+        	SharedPreferencesUtil.setValue(myActivity, "shortcut", "Y");
+	        try {
+				Util.copyBigDataToSD(this);
+				Iterator<String> i = ls.iterator();
+				while (i.hasNext()){
+					Util.copyImageToSD(this, i.next());
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        initarrMap();
+        }
+        initMap();
 		initArrDownMap_copy();
 
         initPopuWindow(R.layout.popwin);
@@ -90,10 +94,7 @@ public class MainActivity extends Activity {
         GridView gv=(GridView)sub_view.findViewById(R.id.gridview);
  	    ma = new MyGridAdapter(this, item, sub_view, this);
         gv.setAdapter(ma);
-        if(!SharedPreferencesUtil.getValue(myActivity, "shortcut", "N").equals("Y")){
-        	Util.addshortcut(this);
-        	SharedPreferencesUtil.setValue(myActivity, "shortcut", "Y");
-        }
+
         init();
         mPopupWindow.setOnDismissListener(new OnDismissListener() {
 			
@@ -135,7 +136,7 @@ public class MainActivity extends Activity {
 		
 	}
 
-	private static void initarrMap() {
+	private static void initMap() {
 		// TODO Auto-generated method stub
     	arrMap=Util.getList(myActivity);
     	if(arrMap.size()==0){
@@ -238,9 +239,17 @@ public class MainActivity extends Activity {
 	public void onWindowFocusChanged(boolean hasFocus) {
 		// TODO Auto-generated method stub
 		super.onWindowFocusChanged(hasFocus);
+		if(!SharedPreferencesUtil.getValue(myActivity, "shortcut", "N").equals("Y")){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		if (!showed){
 	        mPopupWindow.showAtLocation(sub_view, Gravity.CENTER, 0, 0);
-	        initarrMap();
+	        initMap();
 
 	        initArrDownMap_copy();
 	        initArrDownMap_copy1();
@@ -260,7 +269,7 @@ public class MainActivity extends Activity {
 				Thread th;
 				switch (msg.what) {
 				case 1:
-					initarrMap();
+					initMap();
 					App app1 = (App) msg.obj;
 					arrDownMap.remove(app1);
 					initArrDownMap_copy();

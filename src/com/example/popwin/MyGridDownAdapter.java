@@ -14,6 +14,7 @@ import com.legame.eightplatform.R;
 import com.legame.np.util.ImageUtils;
 import com.legame.np.util.TaskUtil;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -113,7 +114,7 @@ public class MyGridDownAdapter extends BaseAdapter {
 				}
 			}
 
-			private void showDialog(final App app) {
+			@SuppressLint("NewApi") private void showDialog(final App app) {
 				View infoView = LayoutInflater.from(mContext).inflate(
 						R.layout.infopop, null);
 				ImageView imageView = (ImageView) infoView

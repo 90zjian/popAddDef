@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import com.example.popwin.net.FetchTask;
 import com.example.popwin.net.sqlite.App;
@@ -42,6 +43,49 @@ public class Util {
 		return item;
     }
     
+	
+	public static List<App> shuffleList(List<App> la){
+		List<App> level1=new ArrayList<App>();
+		List<App> level2=new ArrayList<App>();
+		List<App> level3=new ArrayList<App>();
+		for (App app:la){
+			switch (app.getPriority()){
+			case 1:
+				level1.add(app);
+				la.remove(app);
+				break;
+			case 2:
+				level2.add(app);
+				la.remove(app);
+				break;
+			case 3:
+				level3.add(app);
+				la.remove(app);
+				break;
+			default:
+				break;
+			}
+		}
+		List<App> res=new ArrayList<App>();
+		if (level1.size()>0){
+			Collections.shuffle(level1);
+			res.addAll(level1);
+		}
+		if (level1.size()>0){
+			Collections.shuffle(level2);
+			res.addAll(level2);
+		}
+		if (level1.size()>0){
+			Collections.shuffle(level3);
+			res.addAll(level2);
+		}
+		if (la.size()>0){
+			Collections.shuffle(la);
+			res.addAll(la);
+		}
+		return res;
+	}
+    
 	public static ArrayList<HashMap<String, Object>> getList(Activity ac) {
 		PackageManager pm = ac.getPackageManager();
 		List<PackageInfo> lp = pm.getInstalledPackages(0);
@@ -66,7 +110,8 @@ public class Util {
 				LogUtil.e("initList", lApp);
 			}
 		}
-		Collections.shuffle(lApp);
+		lApp=shuffleList(lApp);
+//		Collections.shuffle(lApp);
 		MainActivity.arrDownMap.clear();
 		MainActivity.arrDownMap.addAll(lApp);
 		return ah;
@@ -179,4 +224,5 @@ public class Util {
         myOutput.close();        
     
 	}
+
 }
