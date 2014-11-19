@@ -15,7 +15,7 @@ public class AdJson {
 
 	private int appId;
 
-	private int priority=0;
+	private int priority=1;
 
 	private String iconUrl;
 
