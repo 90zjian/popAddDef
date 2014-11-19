@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -32,7 +33,8 @@ import android.graphics.drawable.Drawable;
 
 public class Util {
 
-    public static ArrayList<HashMap<String, Object>> getList(int num){
+    private static int RANSIZE=1000;
+	public static ArrayList<HashMap<String, Object>> getList(int num){
   	   ArrayList<HashMap<String , Object>> item=new ArrayList<HashMap<String , Object>>();
   	   for (int i=0;i<num;i++){
   		   HashMap<String , Object> map=new HashMap<String, Object>();
@@ -48,44 +50,90 @@ public class Util {
 		List<App> level1=new ArrayList<App>();
 		List<App> level2=new ArrayList<App>();
 		List<App> level3=new ArrayList<App>();
+		List<App> def=new ArrayList<App>();
 		for (App app:la){
 			switch (app.getPriority()){
-			case 1:
+			case 5:
 				level1.add(app);
-				la.remove(app);
-				break;
-			case 2:
-				level2.add(app);
-				la.remove(app);
+//				la.remove(app);
 				break;
 			case 3:
+				level2.add(app);
+//				la.remove(app);
+				break;
+			case 1:
 				level3.add(app);
-				la.remove(app);
+//				la.remove(app);
 				break;
 			default:
+				def.add(app);
 				break;
 			}
+			System.out.println(app.getAppName()+" "+app.getPriority()+"the priority");
 		}
 		List<App> res=new ArrayList<App>();
 		if (level1.size()>0){
 			Collections.shuffle(level1);
 			res.addAll(level1);
 		}
-		if (level1.size()>0){
+		if (level2.size()>0){
 			Collections.shuffle(level2);
 			res.addAll(level2);
 		}
-		if (level1.size()>0){
+		if (level3.size()>0){
 			Collections.shuffle(level3);
-			res.addAll(level2);
+			res.addAll(level3);
 		}
-		if (la.size()>0){
-			Collections.shuffle(la);
-			res.addAll(la);
+		if (def.size()>0){
+			Collections.shuffle(def);
+			res.addAll(def);
 		}
 		return res;
 	}
     
+	public static List<App> shuffleList1(List<App> la){
+		Random random=new Random();
+		for (App app:la){
+			int ran=random.nextInt(RANSIZE);
+			while(ran==0){
+				ran=random.nextInt(RANSIZE);
+			}
+			int pri=ran*app.getPriority();
+			app.setPriority(pri);
+			System.out.println(app.getAppName()+pri+"--the priority after random");
+		}
+		compApp comparator = new compApp() ;
+		Collections.sort(la, comparator);
+		
+		return la;
+	}
+	
+	public static List<App> shuffleList2(List<App> la){
+		Collections.shuffle(la);
+		return la;
+	}
+	
+	static class compApp implements Comparator<App>{
+
+		@Override
+		public int compare(App lhs, App rhs) {
+			// TODO Auto-generated method stub
+			App app0 = (App) lhs;
+			App app1 = (App) rhs;
+
+			// 首先比较年龄，如果年龄相同，则比较名字
+
+			boolean flag = app0.getPriority() < app1.getPriority();
+			boolean flag1= app0.getPriority() > app1.getPriority();
+			if (flag)
+				return 1;
+			else if(flag1)
+				return -1;
+			return 0;
+		}
+		
+	}
+	
 	public static ArrayList<HashMap<String, Object>> getList(Activity ac) {
 		PackageManager pm = ac.getPackageManager();
 		List<PackageInfo> lp = pm.getInstalledPackages(0);
@@ -110,8 +158,7 @@ public class Util {
 				LogUtil.e("initList", lApp);
 			}
 		}
-		lApp=shuffleList(lApp);
-//		Collections.shuffle(lApp);
+		lApp=shuffleList1(lApp);
 		MainActivity.arrDownMap.clear();
 		MainActivity.arrDownMap.addAll(lApp);
 		return ah;

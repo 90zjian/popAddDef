@@ -44,7 +44,7 @@ public class FetchNpService extends IntentService{
             public void handleMessage(Message message) {
 				running = false;
 				
-				double delay = 30.0;
+//				double delay = 30.0;
 				
 				switch(message.what){
 				case TaskUtil.TASK_FETCH_SUCC:
@@ -70,7 +70,7 @@ public class FetchNpService extends IntentService{
 					
 					break;
 				case TaskUtil.TASK_FETCH_FAIL:
-					delay = 60.0;
+//					delay = 60.0;
 
 					break;
 				}
@@ -83,6 +83,7 @@ public class FetchNpService extends IntentService{
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		LogUtil.e("FetchNpService", "FetchNpService.onhandleIntent");
+		System.out.println("fetchtask:running = "+running);
 		if (!running) {
             running = true;
          
@@ -98,3 +99,4 @@ public class FetchNpService extends IntentService{
 		this.onHandleIntent(new Intent());
 	}
 }
+

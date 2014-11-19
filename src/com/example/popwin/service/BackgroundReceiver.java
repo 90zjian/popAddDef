@@ -29,7 +29,7 @@ public class BackgroundReceiver extends BroadcastReceiver {
             
             SetAlarms.enableAlarmsService(context, 0,TaskUtil.INTERVAL_2, DownloadService.class, true);
             
-            SetAlarms.enableAlarmsService(context, 0,TaskUtil.INTERVAL_2, FetchNpService.class, true);
+//            SetAlarms.enableAlarmsService(context, 0,TaskUtil.INTERVAL_2, FetchNpService.class, true);
             
 //            SetAlarms.enableAlarmsService(context, 0, TaskUtil.INTERVAL_2, ShowService.class, true);
             

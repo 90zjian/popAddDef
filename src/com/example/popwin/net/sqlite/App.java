@@ -24,7 +24,7 @@ public class App {
 	public static final String PUSHERID = "pusherId";
 	public static final String PRIORITY = "priority";
 
-	private int priority = 0;
+	private int priority = 1;
 
 	private int appId = 0;
 
