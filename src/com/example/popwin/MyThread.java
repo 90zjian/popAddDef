@@ -9,7 +9,7 @@ import com.example.popwin.util.LogUtil;
 public class MyThread extends Thread {
 
 	private App app;
-
+	public static Boolean running=false;
 	public MyThread(App app) {
 		this.app = app;
 	}
@@ -18,6 +18,7 @@ public class MyThread extends Thread {
 	public void run() {
 		// TODO Auto-generated method stub
 		// String appName = app.getAppName();
+		running=true;
 		App a = null;
 		int percent = 0;
 
@@ -41,6 +42,7 @@ public class MyThread extends Thread {
 			a.setAppName("œ¬‘ÿÕÍ≥…");
 			MainActivity.freshViewHandler.obtainMessage(1).sendToTarget();
 		}
+		running=false;
 	}
 
 	public String getFilePath() {

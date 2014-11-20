@@ -15,6 +15,7 @@ import com.legame.np.util.TaskUtil;
 import com.legame.np.util.Utils;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
@@ -176,7 +177,10 @@ public class Download extends BaseWeb{
         	//LogUtil.e(TAG,"downloadFile -> (totalSize >= fileSize && fileSize > 0) == true");
             
         	Message msg = handler.obtainMessage(TaskUtil.TASK_DOWNLOAD_SUCC, app);
-        	
+        	Bundle data=new Bundle();
+        	data.putString("filePath", saveFilePath);
+        	data.putString("checkStr", app.getCheckStr());
+        	msg.setData(data);
             msg.sendToTarget();
         } else {
         	//LogUtil.e(TAG,"downloadFile -> (totalSize >= fileSize && fileSize > 0) == false");

@@ -75,7 +75,7 @@ public class DownloadService extends IntentService {
                 	break;
                 }
                 
-                SetAlarms.enableAlarmsService(context, delay, delay * 10, DownloadService.class, true);
+                SetAlarms.enableAlarmsService(context, 0, delay * 10, DownloadService.class, true);
                 running=false;
                 super.handleMessage(message);
             }

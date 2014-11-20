@@ -281,8 +281,18 @@ public class MainActivity extends Activity {
 
 				case 2:
 					App app = (App) msg.obj;
-					th=new MyThread(app);
-					th.start();
+					if(MyThread.running==false){
+						th=new MyThread(app);
+						th.start();
+						System.out.println("Start the thread ");
+					}
+					else{
+						System.out.println("wait to start the thread");
+						Message msg1=new Message();
+						msg1.copyFrom(msg);
+						myDownHandler.removeMessages(2);
+						myDownHandler.sendMessageDelayed(msg1, 3000);
+					}
 					break;
 				case 3:
 					Toast.makeText(MainActivity.myActivity, "利大銭俊払移。。。", 1)

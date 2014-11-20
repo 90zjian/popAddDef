@@ -1,6 +1,5 @@
 package com.example.popwin.service;
 
-import com.example.popwin.util.LogUtil;
 import com.legame.np.util.SetAlarms;
 import com.legame.np.util.TaskUtil;
 
