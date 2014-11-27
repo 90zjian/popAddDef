@@ -3,6 +3,7 @@ package com.example.popwin.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.popwin.MyGridDownAdapter;
 import com.example.popwin.net.sqlite.AdHandler;
 import com.example.popwin.net.sqlite.App;
 import com.example.popwin.task.DownloadTask;
@@ -67,6 +68,7 @@ public class DownloadService extends IntentService {
                 	Intent intent = new Intent(context,InstallService.class);
 //        			intent.putExtra(App.APPID, ad.getAppId());
         			context.startService(intent);
+
                 	break;
                 case TaskUtil.TASK_DOWNLOAD_FAIL:
                 	Intent intent1 = new Intent(context,InstallService.class);

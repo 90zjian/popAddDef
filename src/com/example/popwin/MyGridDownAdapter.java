@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class MyGridDownAdapter extends BaseAdapter {
 	// TextView tv;
 	// View cv;
 	int page;
+	public static Handler compHandler;
 	
 	public static ImageFetcher mImageFetcher;
 	
@@ -92,7 +94,7 @@ public class MyGridDownAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
-		HolderDown holder;
+		final HolderDown holder;
 		// Boolean clickable=true;
 		if (convertView == null) {
 			convertView = LayoutInflater.from(mContext).inflate(
@@ -164,10 +166,22 @@ public class MyGridDownAdapter extends BaseAdapter {
 								.get(position));
 						MainActivity.myActivity.startService(intent);
 						md.dismiss();
-						Message msg = new Message();
-						msg.what = 1;
-						msg.obj = app;
-						MainActivity.waitDownHandler.sendMessage(msg);
+//						Message msg = new Message();
+//						msg.what = 1;
+//						msg.obj = app;
+//						MainActivity.waitDownHandler.sendMessage(msg);
+						compHandler=new Handler(){
+
+							@Override
+							public void handleMessage(Message msg) {
+								// TODO Auto-generated method stub
+								System.out.println(holder.name.getText());
+								holder.name.setText("下载完成");
+								super.handleMessage(msg);
+							}
+						};
+						System.out.println(holder.name.getText().toString());
+						holder.name.setText("下载中...");
 					}
 				});
 				md.show();

@@ -337,7 +337,7 @@ public class MainActivity extends Activity {
 					App app = Util.searchApp((App) msg.obj,
 					MainActivity.arrDownMap_copy);
 					if(app!=null){
-						app.setAppName("下载中。。。");
+						app.setAppName("下载中...");
 						MainActivity.freshViewHandler.obtainMessage(1).sendToTarget();
 					}
 					break;

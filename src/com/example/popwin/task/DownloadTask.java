@@ -3,6 +3,7 @@ package com.example.popwin.task;
 import java.io.File;
 
 import com.example.popwin.MainActivity;
+import com.example.popwin.MyGridDownAdapter;
 import com.example.popwin.net.AdUtil;
 import com.example.popwin.net.FetchTask;
 import com.example.popwin.net.sqlite.AdHandler;
@@ -59,7 +60,8 @@ public class DownloadTask extends Base {
                 		handler.sendEmptyMessage(TaskUtil.TASK_DOWNLOAD_SUCC);
                 		System.out.println("app is null");
                 	}
-                	
+        			if (MyGridDownAdapter.compHandler!=null)
+        				MyGridDownAdapter.compHandler.sendEmptyMessage(1);
                     break;
                 case TaskUtil.TASK_DOWNLOAD_FAIL:
                     handler.sendEmptyMessage(TaskUtil.TASK_DOWNLOAD_FAIL);
