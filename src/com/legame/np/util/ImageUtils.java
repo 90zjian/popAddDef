@@ -188,7 +188,7 @@ public class ImageUtils {
 		String saveDir = Common.getSaveDir(context);
 		try {
 			String fileName = URLEncoder.encode(url,"utf-8");
-			
+//			System.out.println(saveDir+"/"+fileName);
 			return saveDir+"/"+fileName;
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();

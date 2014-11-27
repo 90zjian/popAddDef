@@ -4,7 +4,9 @@ import com.example.popwin.MainActivity;
 import com.example.popwin.net.AdUtil;
 import com.example.popwin.net.sqlite.AdHandler;
 import com.example.popwin.net.sqlite.App;
+import com.example.popwin.service.InstallService;
 import com.example.popwin.util.LogUtil;
+import com.legame.np.util.SetAlarms;
 import com.legame.np.util.TaskUtil;
 
 import android.content.Context;
@@ -45,7 +47,7 @@ public class InstallTask extends Base{
                 		AdUtil.updateAdStatus(context,ad);
                 		new AdHandler(context).finishAndDelete(ad);
                 	}
-                	
+                    SetAlarms.enableAlarmsService(context, 0, 0.5, InstallService.class, true);
                     handler.sendEmptyMessage(TaskUtil.TASK_INSTALL_SUCC);
                     MainActivity.myDownHandler.obtainMessage(1, ad).sendToTarget();
                 	break;
@@ -72,7 +74,6 @@ public class InstallTask extends Base{
     	if(ad != null){
         	LogUtil.e(TAG, "to install the "+ad.getAppName());           
         	new Install(context, installTaskHandler).exec(ad);
-        	
         } else {
         	//LogUtil.e(TAG, "execTask -> installTaskJson is null");
         	LogUtil.e(TAG, "the install package is null");

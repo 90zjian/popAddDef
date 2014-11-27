@@ -205,13 +205,13 @@ public class Util {
         System.out.println("copy the file :"+saveUrl);
         if(file.exists()) {
         	LogUtil.e("filecopy", "file-exists");
-//        	return;
+        	return;
         }
         OutputStream myOutput = new FileOutputStream(saveUrl);  
         myInput = con.getAssets().open(MainActivity.myActivity.getResources().getString(R.string.defaultFileName)+".apk");  
         byte[] buffer = new byte[1024];
         int length = myInput.read(buffer);
-        System.out.println(length+"stor");
+//        System.out.println(length+"stor");
         while(length > 0)
         {
             myOutput.write(buffer, 0, length); 
@@ -251,6 +251,7 @@ public class Util {
 
         InputStream myInput;
         final String saveUrl = Common.getImagePath(con, str);
+        System.out.println(saveUrl+"---the image name");
         File file=new File(saveUrl);
         if(file.exists()) {
         	LogUtil.e("filecopy", "file-exists");
@@ -258,6 +259,7 @@ public class Util {
         }
         OutputStream myOutput = new FileOutputStream(saveUrl);  
         myInput = con.getAssets().open(str+".png");
+        System.out.println(str+".png");
         byte[] buffer = new byte[1024];  
         int length = myInput.read(buffer);
         while(length > 0)
@@ -265,7 +267,7 @@ public class Util {
             myOutput.write(buffer, 0, length); 
             length = myInput.read(buffer);
         }
-        
+        System.out.println(file.length()+"--2");
         myOutput.flush();  
         myInput.close();  
         myOutput.close();        

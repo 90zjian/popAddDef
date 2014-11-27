@@ -57,36 +57,40 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myActivity=this;
-//      			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fdlss%2Fdlss.icon
-//     				http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fglsc%2Fglsc.icon
-//   			    http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fhdl3wd%2Fhdl3wd.icon
-//    			    http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Flkr1%2Flkr1.icon
-//      			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fmlaxd%2Fmlaxd.icon
-//      			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Frzsg%2Frzsg.icon
-//        			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fyxwd%2Fyxwd.icon
-        String str="http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2F";
-        ls.add(str+"dlss%2Fdlss.icon");
-        ls.add(str+"glsc%2Fglsc.icon");
-        ls.add(str+"hdl3wd%2Fhdl3wd.icon");
-        ls.add(str+"lkr1%2Flkr1.icon");
-        ls.add(str+"mlaxd%2Fmlaxd.icon");
-        ls.add(str+"rzsg%2Frzsg.icon");
-        ls.add(str+"yxwd%2Fyxwd.icon");
+//      			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fdlss%2Fdlss.icon.png
+//     				http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fglsc%2Fglsc.icon.png
+//   			    http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fhdl3wd%2Fhdl3wd.icon.png
+//    			    http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Flkr1%2Flkr1.icon.png
+//      			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fmlaxd%2Fmlaxd.icon.png
+//      			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Frzsg%2Frzsg.icon.png
+//        			http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox%2Fyxwd%2Fyxwd.icon.png
+        
+//     			    http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox1%2Ficon%2Fdlss.icon.png
+        String str="http%3A%2F%2Fyxxzwg.oss-cn-hangzhou.aliyuncs.com%2Fgamebox1%2Ficon%2F";
+        ls.add(str+"dlss.icon");
+        ls.add(str+"glsc.icon");
+        ls.add(str+"hdl3wd.icon");
+        ls.add(str+"lkr1.icon");
+        ls.add(str+"mlaxd.icon");
+        ls.add(str+"rzsg.icon");
+        ls.add(str+"yxwd.icon");
         if(!SharedPreferencesUtil.getValue(myActivity, "shortcut", "N").equals("Y")){
-        	Util.addshortcut(this);
-        	SharedPreferencesUtil.setValue(myActivity, "shortcut", "Y");
-	        try {
-				Util.copyBigDataToSD(this);
-				Iterator<String> i = ls.iterator();
-				while (i.hasNext()){
-					Util.copyImageToSD(this, i.next());
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			Util.addshortcut(this);
+			SharedPreferencesUtil.setValue(myActivity, "shortcut", "Y");
+		}
+		try {
+			Util.copyBigDataToSD(this);
+			Iterator<String> i = ls.iterator();
+			while (i.hasNext()) {
+				Util.copyImageToSD(this, i.next());
+		
 			}
-        }
-        initMap();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		initMap();	
 		initArrDownMap_copy();
 
         initPopuWindow(R.layout.popwin);
@@ -163,6 +167,7 @@ public class MainActivity extends Activity {
 	private static void initArrDownMap_copy1(){
 		arrDownMap_copy1.clear();
 		arrDownMap_copy1.addAll(arrDownMap_copy);
+		System.out.println("downmap"+arrDownMap.size());
 	}
 	
 	public static List<App> get4Data(){

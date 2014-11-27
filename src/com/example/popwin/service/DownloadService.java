@@ -61,6 +61,8 @@ public class DownloadService extends IntentService {
                 			context.startService(intent);
 
                 		delay = 0.0;
+                        SetAlarms.enableAlarmsService(context, delay, 2, DownloadService.class, true);
+
                 	}
                 	Intent intent = new Intent(context,InstallService.class);
 //        			intent.putExtra(App.APPID, ad.getAppId());
@@ -71,11 +73,10 @@ public class DownloadService extends IntentService {
 //        			intent.putExtra(App.APPID, ad.getAppId());
         			context.startService(intent1);
                 	delay = 1.0;
-//                    SetAlarms.enableAlarmsService(context, delay, delay * 10, DownloadService.class, true);
+                    SetAlarms.enableAlarmsService(context, delay, delay*2, DownloadService.class, true);
                 	break;
                 }
                 
-                SetAlarms.enableAlarmsService(context, 0, delay * 10, DownloadService.class, true);
                 running=false;
                 super.handleMessage(message);
             }
