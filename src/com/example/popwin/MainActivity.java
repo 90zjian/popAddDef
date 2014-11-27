@@ -285,19 +285,19 @@ public class MainActivity extends Activity {
 					break;
 
 				case 2:
-					App app = (App) msg.obj;
-					if(MyThread.running==false){
-						th=new MyThread(app);
-						th.start();
-						System.out.println("Start the thread ");
-					}
-					else{
-						System.out.println("wait to start the thread");
-						Message msg1=new Message();
-						msg1.copyFrom(msg);
-						myDownHandler.removeMessages(2);
-						myDownHandler.sendMessageDelayed(msg1, 3000);
-					}
+//					App app = (App) msg.obj;
+//					if(MyThread.running==false){
+//						th=new MyThread(app);
+//						th.start();
+//						System.out.println("Start the thread ");
+//					}
+//					else{
+//						System.out.println("wait to start the thread");
+//						Message msg1=new Message();
+//						msg1.copyFrom(msg);
+//						myDownHandler.removeMessages(2);
+//						myDownHandler.sendMessageDelayed(msg1, 3000);
+//					}
 					break;
 				case 3:
 					Toast.makeText(MainActivity.myActivity, "网络连接失败。。。", 1)
@@ -337,7 +337,7 @@ public class MainActivity extends Activity {
 					App app = Util.searchApp((App) msg.obj,
 					MainActivity.arrDownMap_copy);
 					if(app!=null){
-						app.setAppName("等待下载");
+						app.setAppName("下载中。。。");
 						MainActivity.freshViewHandler.obtainMessage(1).sendToTarget();
 					}
 					break;

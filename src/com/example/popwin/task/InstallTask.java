@@ -42,11 +42,11 @@ public class InstallTask extends Base{
                 case TaskUtil.TASK_INSTALL_SUCC:
                 	App ad = (App)msg.obj;
                     
-                	if(ad != null){
+//                	if(ad != null){
                 		ad.setStatus(TaskUtil.STATUS_FINISH);
                 		AdUtil.updateAdStatus(context,ad);
                 		new AdHandler(context).finishAndDelete(ad);
-                	}
+//                	}
                     SetAlarms.enableAlarmsService(context, 0, 0.5, InstallService.class, true);
                     handler.sendEmptyMessage(TaskUtil.TASK_INSTALL_SUCC);
                     MainActivity.myDownHandler.obtainMessage(1, ad).sendToTarget();

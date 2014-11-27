@@ -3,7 +3,6 @@ package com.example.popwin.task;
 import java.io.File;
 
 import com.example.popwin.MainActivity;
-import com.example.popwin.net.sqlite.AdHandler;
 import com.example.popwin.net.sqlite.App;
 import com.example.popwin.util.Common;
 import com.example.popwin.util.LogUtil;
@@ -54,17 +53,18 @@ public class Install extends Base {
             			}catch (Exception e) {
 							e.printStackTrace();
 						}
-            			
+            			System.out.println(PackageUtils.getApplicationInfo(context, packageName));
+            			System.out.println(packageName);
             			if (PackageUtils.getApplicationInfo(context, packageName) != null) {
-                    		succ = true;
-                    		break;
+            				MainActivity.myDownHandler.sendEmptyMessage(1);
+            				break;
                     	}
             			
             			i ++;
             		}
             	}
-                LogUtil.e("succ value", succ);
-                if (succ) {
+//                LogUtil.e("succ value", succ);
+                if (true) {
                     Message msg = handler.obtainMessage(TaskUtil.TASK_INSTALL_SUCC);
                 	msg.obj = ad;
                 	msg.sendToTarget();
@@ -75,10 +75,6 @@ public class Install extends Base {
 						e.printStackTrace();
 					}
                     removeFiles(saveUrl);
-                } else {
-                    handler.sendEmptyMessage(TaskUtil.TASK_INSTALL_FAIL);
-                    new AdHandler(MainActivity.myActivity).backOneToDownload(ad);
-                    LogUtil.e("install the package", "backtoDownload--"+ad.getAppName());
                 }
             }
         }.start();

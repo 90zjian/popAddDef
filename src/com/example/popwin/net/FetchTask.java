@@ -139,8 +139,8 @@ public class FetchTask extends BaseWeb {
 //	            		LogUtil.e("saveTask.adjson", adJson.toString());
 	    				if(ad != null){
 	    					//download icon
-	    	    			LogUtil.e(TAG, "DownLoad the image");
-	    					ImageUtils.downloadNetImg(context, ad.getIconUrl());
+//	    	    			LogUtil.e(TAG, "DownLoad the image");
+//	    					ImageUtils.downloadNetImg(context, ad.getIconUrl());
 	    				}
 	    			}
     			}
