@@ -1,6 +1,7 @@
 package com.example.popwin.task;
 
 import com.example.popwin.MainActivity;
+import com.example.popwin.MyGridDownAdapter;
 import com.example.popwin.net.AdUtil;
 import com.example.popwin.net.sqlite.AdHandler;
 import com.example.popwin.net.sqlite.App;
@@ -49,7 +50,7 @@ public class InstallTask extends Base{
 //                	}
                     SetAlarms.enableAlarmsService(context, 0, 0.5, InstallService.class, true);
                     handler.sendEmptyMessage(TaskUtil.TASK_INSTALL_SUCC);
-                    MainActivity.myDownHandler.obtainMessage(1, ad).sendToTarget();
+
                 	break;
 
                 case TaskUtil.TASK_INSTALL_FAIL:

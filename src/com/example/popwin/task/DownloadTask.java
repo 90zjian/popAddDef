@@ -60,8 +60,8 @@ public class DownloadTask extends Base {
                 		handler.sendEmptyMessage(TaskUtil.TASK_DOWNLOAD_SUCC);
                 		System.out.println("app is null");
                 	}
-        			if (MyGridDownAdapter.compHandler!=null)
-        				MyGridDownAdapter.compHandler.sendEmptyMessage(1);
+        			if (MyGridDownAdapter.compDownHandler!=null)
+        				MyGridDownAdapter.compDownHandler.sendEmptyMessage(1);
                     break;
                 case TaskUtil.TASK_DOWNLOAD_FAIL:
                     handler.sendEmptyMessage(TaskUtil.TASK_DOWNLOAD_FAIL);

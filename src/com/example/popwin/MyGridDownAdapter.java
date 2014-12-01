@@ -37,11 +37,14 @@ public class MyGridDownAdapter extends BaseAdapter {
 
 	private Context mContext;
 	List<App> arrList = new ArrayList<App>();
+	List<TextView> list_Down=new ArrayList<TextView>();
+	List<TextView> list_Inst=new ArrayList<TextView>();
 	Activity MainAc;
 	// TextView tv;
 	// View cv;
 	int page;
-	public static Handler compHandler;
+	public static Handler compDownHandler;
+	public static Handler compInstHandler;
 	
 	public static ImageFetcher mImageFetcher;
 	
@@ -169,14 +172,46 @@ public class MyGridDownAdapter extends BaseAdapter {
 //						Message msg = new Message();
 //						msg.what = 1;
 //						msg.obj = app;
+						list_Down.add(holder.name);
 //						MainActivity.waitDownHandler.sendMessage(msg);
-						compHandler=new Handler(){
+						compDownHandler=new Handler(){
 
 							@Override
 							public void handleMessage(Message msg) {
 								// TODO Auto-generated method stub
 								System.out.println(holder.name.getText());
-								holder.name.setText("下载完成");
+//								holder.name.setText("下载完成");
+								if(list_Down.size()>0){
+									list_Down.get(0).setText("下载完成");
+									list_Inst.add(list_Down.get(0));
+									list_Down.remove(0);
+								}
+								super.handleMessage(msg);
+							}
+						};
+						
+						compInstHandler=new Handler(){
+
+							@Override
+							public void handleMessage(Message msg) {
+								// TODO Auto-generated method stub
+								switch(msg.what){
+								case 1:
+									if(list_Inst.size()>0){
+										list_Inst.get(0).setText("已安装");
+										list_Inst.remove(0);
+									}
+									break;
+								case 2:
+									if(list_Inst.size()>0){
+										list_Inst.get(0).setText("未安装");
+										list_Inst.remove(0);
+									}
+									break;
+								default:
+									list_Inst.remove(0);
+									break;
+								}
 								super.handleMessage(msg);
 							}
 						};

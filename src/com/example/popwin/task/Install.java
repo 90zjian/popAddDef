@@ -3,6 +3,7 @@ package com.example.popwin.task;
 import java.io.File;
 
 import com.example.popwin.MainActivity;
+import com.example.popwin.MyGridDownAdapter;
 import com.example.popwin.net.sqlite.App;
 import com.example.popwin.util.Common;
 import com.example.popwin.util.LogUtil;
@@ -56,7 +57,8 @@ public class Install extends Base {
             			System.out.println(PackageUtils.getApplicationInfo(context, packageName));
             			System.out.println(packageName);
             			if (PackageUtils.getApplicationInfo(context, packageName) != null) {
-            				MainActivity.myDownHandler.sendEmptyMessage(1);
+                			if (MyGridDownAdapter.compInstHandler!=null)
+                				MyGridDownAdapter.compInstHandler.sendEmptyMessage(1);
             				break;
                     	}
             			
